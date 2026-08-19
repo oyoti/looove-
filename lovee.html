@@ -1,0 +1,1034 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>a little question for you ❤️</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --blush:#ffe3ec;
+    --blush-soft:#fff1f5;
+    --white:#fffbfb;
+    --deep-red:#a81338;
+    --deep-red-2:#7d0e29;
+    --rose:#e85d75;
+    --rose-light:#ff8fa3;
+    --gold:#c9a227;
+    --gold-light:#f0d98c;
+    --text-dark:#4a1420;
+    --text-soft:#7a3b48;
+    --shadow: 0 20px 60px -20px rgba(168,19,56,0.35);
+  }
+
+  *{box-sizing:border-box; -webkit-tap-highlight-color: transparent;}
+
+  html,body{
+    margin:0;
+    padding:0;
+    width:100%;
+    min-height:100%;
+    overflow-x:hidden;
+  }
+
+  body{
+    font-family:'Quicksand', sans-serif;
+    background:
+      radial-gradient(circle at 20% 10%, #fff5f8 0%, transparent 45%),
+      radial-gradient(circle at 85% 85%, #ffe0ea 0%, transparent 50%),
+      linear-gradient(160deg, var(--blush-soft) 0%, var(--blush) 55%, #ffd9e4 100%);
+    min-height:100vh;
+    color:var(--text-dark);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    position:relative;
+    padding:24px;
+  }
+
+  h1,h2,h3,.serif{
+    font-family:'Playfair Display', serif;
+  }
+
+  /* ---------- background fx ---------- */
+  #bg-fx{
+    position:fixed;
+    inset:0;
+    pointer-events:none;
+    overflow:hidden;
+    z-index:0;
+  }
+  .bg-heart{
+    position:absolute;
+    bottom:-40px;
+    opacity:.55;
+    color:var(--rose-light);
+    animation-name:floatUp;
+    animation-timing-function:ease-in;
+    animation-iteration-count:1;
+    will-change:transform,opacity;
+    filter:drop-shadow(0 0 6px rgba(232,93,117,.25));
+  }
+  @keyframes floatUp{
+    0%{ transform:translateY(0) translateX(0) rotate(0deg); opacity:0;}
+    10%{opacity:.6;}
+    100%{ transform:translateY(-115vh) translateX(var(--drift,20px)) rotate(25deg); opacity:0;}
+  }
+  .sparkle{
+    position:absolute;
+    color:var(--gold);
+    opacity:0;
+    animation:twinkle 3.2s ease-in-out infinite;
+    filter:drop-shadow(0 0 4px rgba(201,162,39,.6));
+  }
+  @keyframes twinkle{
+    0%,100%{opacity:0; transform:scale(.4) rotate(0deg);}
+    50%{opacity:.9; transform:scale(1) rotate(90deg);}
+  }
+
+  /* ---------- stage / card ---------- */
+  .stage{
+    position:relative;
+    z-index:2;
+    width:100%;
+    max-width:460px;
+  }
+
+  .card{
+    background: linear-gradient(180deg, var(--white) 0%, var(--blush-soft) 100%);
+    border-radius:28px;
+    padding:44px 32px 36px;
+    box-shadow: var(--shadow), 0 0 0 1px rgba(201,162,39,.18) inset;
+    position:relative;
+    overflow:hidden;
+    text-align:center;
+    border:1px solid rgba(201,162,39,.35);
+  }
+  .card::before{
+    content:"";
+    position:absolute;
+    top:-2px; left:-2px; right:-2px;
+    height:5px;
+    background:linear-gradient(90deg, var(--gold-light), var(--gold), var(--rose), var(--gold-light));
+    background-size:200% 100%;
+    animation:shimmer 5s linear infinite;
+  }
+  @keyframes shimmer{
+    0%{background-position:0% 0%;}
+    100%{background-position:200% 0%;}
+  }
+
+  .screen{
+    display:none;
+    opacity:0;
+    transition:opacity .55s ease;
+  }
+  .screen.active{
+    display:block;
+    opacity:1;
+  }
+
+  .eyebrow{
+    letter-spacing:.16em;
+    text-transform:uppercase;
+    font-size:.72rem;
+    color:var(--gold);
+    font-weight:700;
+    margin-bottom:10px;
+  }
+
+  .big-emoji{
+    font-size:2.6rem;
+    margin-bottom:6px;
+    display:block;
+    animation:pulseHeart 1.8s ease-in-out infinite;
+  }
+  @keyframes pulseHeart{
+    0%,100%{transform:scale(1);}
+    50%{transform:scale(1.12);}
+  }
+
+  h1.title{
+    font-size:clamp(1.5rem, 5vw, 1.9rem);
+    color:var(--deep-red);
+    margin:6px 0 10px;
+    font-weight:700;
+    line-height:1.3;
+  }
+
+  .question-text{
+    font-size:clamp(1.15rem, 4.4vw, 1.35rem);
+    line-height:1.5;
+    color:var(--text-dark);
+    font-weight:600;
+    margin:10px 0 28px;
+    font-style:italic;
+    font-family:'Playfair Display', serif;
+  }
+
+  .subtext{
+    color:var(--text-soft);
+    font-size:.95rem;
+    margin:0 0 26px;
+    line-height:1.5;
+  }
+
+  /* ---------- buttons ---------- */
+  .btn{
+    font-family:'Quicksand', sans-serif;
+    font-weight:700;
+    font-size:1rem;
+    border:none;
+    border-radius:999px;
+    padding:15px 30px;
+    cursor:pointer;
+    transition: transform .18s ease, box-shadow .18s ease, background .18s ease;
+    -webkit-user-select:none;
+    user-select:none;
+  }
+  .btn:active{ transform:scale(.96); }
+
+  .btn-yes{
+    background: linear-gradient(135deg, var(--rose), var(--deep-red));
+    color:#fff;
+    box-shadow:0 10px 24px -8px rgba(168,19,56,.55);
+  }
+  .btn-yes:hover{
+    transform:translateY(-2px) scale(1.03);
+    box-shadow:0 14px 30px -8px rgba(168,19,56,.65);
+  }
+
+  .btn-no{
+    background:#fff;
+    color:var(--text-soft);
+    border:1.5px solid #f3c8d4;
+    box-shadow:0 4px 12px -4px rgba(168,19,56,.15);
+  }
+
+  .choice-row{
+    position:relative;
+    display:flex;
+    gap:14px;
+    justify-content:center;
+    align-items:center;
+    flex-wrap:wrap;
+    min-height:130px;
+    padding:6px;
+  }
+
+  .btn-start{
+    background: linear-gradient(135deg, var(--gold-light), var(--gold));
+    color:var(--deep-red-2);
+    font-size:1.05rem;
+    padding:16px 36px;
+    box-shadow:0 12px 26px -8px rgba(201,162,39,.55);
+  }
+  .btn-start:hover{ transform:translateY(-2px) scale(1.03); }
+
+  .toast{
+    position:absolute;
+    left:50%;
+    bottom:-6px;
+    transform:translate(-50%, 0);
+    background:var(--deep-red);
+    color:#fff;
+    font-size:.78rem;
+    padding:6px 14px;
+    border-radius:999px;
+    white-space:nowrap;
+    opacity:0;
+    pointer-events:none;
+    transition:opacity .3s ease, transform .3s ease;
+    font-weight:600;
+  }
+  .toast.show{
+    opacity:1;
+    transform:translate(-50%, -18px);
+  }
+
+  /* progress dots */
+  .progress{
+    display:none;
+    gap:9px;
+    justify-content:center;
+    margin-bottom:26px;
+  }
+  .progress.show{
+    display:flex;
+  }
+  .progress span{
+    width:8px; height:8px;
+    border-radius:50%;
+    background:#f3c8d4;
+    transition:background .3s ease, transform .3s ease;
+  }
+  .progress span.done{
+    background:var(--rose);
+    transform:scale(1.15);
+  }
+  .progress span.now{
+    background:var(--deep-red);
+    transform:scale(1.35);
+  }
+
+  /* what's my type grid */
+  .type-grid{
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+    margin:20px 0 4px;
+  }
+  .type-row{
+    display:flex;
+    gap:12px;
+  }
+  .type-box{
+    flex:1;
+    padding:16px 8px;
+    border-radius:16px;
+    border:1.5px solid #f3c8d4;
+    background:#fff;
+    font-family:'Quicksand', sans-serif;
+    font-weight:700;
+    font-size:.98rem;
+    color:var(--text-dark);
+    cursor:pointer;
+    transition:background .25s ease, border-color .25s ease, color .25s ease, transform .15s ease;
+    -webkit-user-select:none;
+    user-select:none;
+  }
+  .type-box:hover{
+    transform:translateY(-2px);
+    border-color:var(--rose);
+  }
+  .type-box:active{ transform:scale(.97); }
+  .type-box.selected{
+    background:#ececec;
+    border-color:#dcdcdc;
+    color:#a7a7a7;
+    cursor:default;
+    transform:none;
+    box-shadow:none;
+  }
+  .type-box.selected:hover{ transform:none; border-color:#dcdcdc; }
+
+  /* analysing screen */
+  .analysing-text{
+    font-family:'Playfair Display', serif;
+    font-style:italic;
+    font-size:1.15rem;
+    color:var(--deep-red);
+    min-height:2.4em;
+    transition:opacity .3s ease;
+  }
+  .loader-heart{
+    animation:pulseHeart 1s ease-in-out infinite;
+  }
+
+  /* photo reveal */
+  .photo-frame{
+    width:100%;
+    aspect-ratio:4/5;
+    border-radius:20px;
+    overflow:hidden;
+    position:relative;
+    box-shadow:var(--shadow);
+    border:1px solid rgba(201,162,39,.35);
+    background:linear-gradient(160deg, var(--blush) 0%, var(--gold-light) 100%);
+  }
+  .photo-frame img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    display:block;
+    opacity:1;
+    transition:opacity 4s ease;
+  }
+  .photo-frame img.fade-out{
+    opacity:0;
+  }
+  .photo-fallback{
+    position:absolute;
+    inset:0;
+    display:none;
+    align-items:center;
+    justify-content:center;
+    flex-direction:column;
+    gap:10px;
+    text-align:center;
+    font-size:.85rem;
+    color:var(--text-soft);
+    padding:20px;
+    line-height:1.6;
+  }
+  .photo-fallback code{
+    background:rgba(255,255,255,.6);
+    padding:2px 6px;
+    border-radius:6px;
+  }
+  .photo-frame img.hidden-img{ display:none; }
+  .photo-frame.show-fallback .photo-fallback{ display:flex; }
+
+  /* final question */
+  .final-step{
+    display:none;
+  }
+  .final-step.active{
+    display:block;
+    animation:fadeSlide .7s ease;
+  }
+  @keyframes fadeSlide{
+    from{opacity:0; transform:translateY(10px);}
+    to{opacity:1; transform:translateY(0);}
+  }
+  .final-line{
+    font-size:1.2rem;
+    line-height:1.6;
+    color:var(--text-dark);
+    font-family:'Playfair Display', serif;
+    font-style:italic;
+    margin-bottom:8px;
+  }
+  .ring{
+    font-size:3rem;
+    display:block;
+    margin:6px 0 18px;
+    animation:pulseHeart 1.6s ease-in-out infinite;
+  }
+
+  /* celebration */
+  #celebration-screen .title{
+    font-size:clamp(1.6rem, 6vw, 2.1rem);
+  }
+  #celebration-screen .subtext{
+    font-size:1.02rem;
+    color:var(--text-dark);
+    margin-top:4px;
+  }
+  .music-btn{
+    margin-top:22px;
+    background:transparent;
+    border:1.5px solid var(--gold);
+    color:var(--deep-red);
+    padding:10px 22px;
+    font-size:.85rem;
+    border-radius:999px;
+    cursor:pointer;
+    font-weight:700;
+    transition:background .2s ease, transform .2s ease;
+  }
+  .music-btn:hover{ background:rgba(201,162,39,.12); transform:translateY(-1px);}
+
+  .shard{
+    position:fixed;
+    pointer-events:none;
+    z-index:60;
+    animation: shatterFly .85s cubic-bezier(.25,.7,.35,1) forwards;
+  }
+  @keyframes shatterFly{
+    to{ transform:translate(var(--tx), var(--ty)) rotate(var(--rot)); opacity:0; }
+  }
+  .gone-msg{
+    font-size:.85rem;
+    color:var(--text-soft);
+    font-style:italic;
+    margin-top:10px;
+  }
+
+  #fx-overlay{
+    position:fixed;
+    inset:0;
+    pointer-events:none;
+    overflow:hidden;
+    z-index:5;
+  }
+  .fall-piece{
+    position:absolute;
+    top:-30px;
+    will-change:transform, opacity;
+  }
+  @keyframes fallDown{
+    0%{ transform:translateY(0) rotate(0deg); opacity:1;}
+    100%{ transform:translateY(112vh) rotate(360deg); opacity:.9;}
+  }
+
+  footer.credit{
+    text-align:center;
+    margin-top:16px;
+    font-size:.72rem;
+    color:var(--text-soft);
+    opacity:.7;
+  }
+
+  :focus-visible{
+    outline:2.5px solid var(--deep-red);
+    outline-offset:3px;
+  }
+
+  @media (max-width:420px){
+    .card{ padding:36px 22px 28px; border-radius:22px;}
+    .choice-row{ min-height:150px; }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ animation-duration:.001ms !important; animation-iteration-count:1 !important; transition-duration:.001ms !important; }
+  }
+</style>
+</head>
+<body>
+
+<div id="bg-fx"></div>
+
+<div class="stage">
+  <div class="card">
+
+    <!-- INTRO -->
+    <div class="screen active" data-screen="intro">
+      <div class="eyebrow">for you</div>
+      <span class="big-emoji">💌</span>
+      <h1 class="title">I have a little question for you...</h1>
+      <p class="subtext">Actually — a few little questions. Just answer honestly, okay? 👀</p>
+      <button class="btn btn-start" id="startBtn">Begin ❤️</button>
+    </div>
+
+    <!-- persistent progress dots, shown during q0 -> type -> q1 -> q2 -> q3 -->
+    <div class="progress" id="progress">
+      <span></span><span></span><span></span><span></span><span></span>
+    </div>
+
+    <!-- QUESTIONS (template filled by JS) -->
+    <div class="screen" data-screen="question">
+      <span class="big-emoji" id="qEmoji">❤️</span>
+      <p class="question-text" id="qText"></p>
+      <div class="choice-row">
+        <button class="btn btn-yes" id="qYesBtn"></button>
+        <button class="btn btn-no" id="qNoBtn"></button>
+        <div class="toast" id="qToast"></div>
+      </div>
+    </div>
+
+    <!-- WHAT'S MY TYPE -->
+    <div class="screen" data-screen="type">
+      <span class="big-emoji">💭</span>
+      <p class="question-text">Quick one… what's my type?</p>
+      <div class="type-grid" id="typeGrid">
+        <div class="type-row">
+          <button class="type-box correct" data-key="petite">Petite</button>
+          <button class="type-box wrong" data-key="thick">Thick</button>
+        </div>
+        <div class="type-row">
+          <button class="type-box correct" data-key="funny">Funny</button>
+          <button class="type-box wrong" data-key="gloomy">Gloomy</button>
+        </div>
+        <div class="type-row">
+          <button class="type-box correct" data-key="you">You</button>
+          <button class="type-box wrong" data-key="ex">My Ex</button>
+        </div>
+      </div>
+      <p class="subtext" id="typeHint" style="margin-top:18px;">pick the right ones… 😉</p>
+    </div>
+
+    <!-- ANALYSING -->
+    <div class="screen" data-screen="analysing">
+      <span class="big-emoji loader-heart">💗</span>
+      <p class="analysing-text" id="analysingText">Analysing answers...</p>
+    </div>
+
+    <!-- PHOTO REVEAL -->
+    <div class="screen" data-screen="reveal">
+      <div class="photo-frame" id="photoFrame">
+        <img src="love.png" alt="her" id="revealImg">
+        <div class="photo-fallback" id="photoFallback">📷<br>drop <code>love.png</code> next to this file</div>
+      </div>
+    </div>
+
+    <!-- FINAL -->
+    <div class="screen" data-screen="final">
+      <div class="final-step active" id="finalStep1">
+        <span class="big-emoji">🥹</span>
+        <p class="final-line">Okay… I've asked you enough questions. ❤️</p>
+        <p class="final-line">There's one last thing I need to ask…</p>
+        <button class="btn btn-start" id="finalContinueBtn" style="margin-top:14px;">Okay… 🥺</button>
+      </div>
+      <div class="final-step" id="finalStep2">
+        <span class="ring">💍</span>
+        <h1 class="title" style="font-size:clamp(1.5rem,6vw,2rem);">Will you be my girlfriend? 🌹❤️</h1>
+        <div class="choice-row" style="min-height:150px;">
+          <button class="btn btn-yes" id="finalYesBtn" style="font-size:1.1rem; padding:17px 34px;">YES! ❤️🥹</button>
+          <button class="btn btn-no" id="finalNoBtn">NO 😭</button>
+          <div class="toast" id="finalToast">Wait… are you sure? 🥺❤️</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CELEBRATION -->
+    <div class="screen" id="celebration-screen" data-screen="celebration">
+      <span class="big-emoji">🎉</span>
+      <h1 class="title">YOU JUST MADE ME<br>THE HAPPIEST GUY ALIVE! ❤️🥹</h1>
+      <p class="subtext">I can't wait to see where our story takes us. ❤️</p>
+      <button class="music-btn" id="musicBtn">🎵 Play our song</button>
+    </div>
+
+  </div>
+  <footer class="credit">made with ❤️, just for you</footer>
+</div>
+
+<div id="fx-overlay"></div>
+
+<script>
+(function(){
+  "use strict";
+
+  /* ---------------- background hearts + sparkles ---------------- */
+  const bgFx = document.getElementById('bg-fx');
+  const heartChars = ['❤️','💗','💕','💖','🌹'];
+
+  function spawnBgHeart(){
+    const el = document.createElement('span');
+    el.className = 'bg-heart';
+    el.textContent = heartChars[Math.floor(Math.random()*heartChars.length)];
+    const size = 14 + Math.random()*22;
+    el.style.left = (Math.random()*96)+'vw';
+    el.style.fontSize = size+'px';
+    el.style.setProperty('--drift', (Math.random()*80-40)+'px');
+    const dur = 8 + Math.random()*7;
+    el.style.animationDuration = dur+'s';
+    bgFx.appendChild(el);
+    setTimeout(()=> el.remove(), dur*1000 + 200);
+  }
+  setInterval(spawnBgHeart, 650);
+  for(let i=0;i<6;i++) setTimeout(spawnBgHeart, i*300);
+
+  function spawnSparkles(count){
+    for(let i=0;i<count;i++){
+      const el = document.createElement('span');
+      el.className = 'sparkle';
+      el.textContent = '✨';
+      el.style.left = (Math.random()*98)+'vw';
+      el.style.top = (Math.random()*98)+'vh';
+      el.style.fontSize = (8+Math.random()*10)+'px';
+      el.style.animationDelay = (Math.random()*3)+'s';
+      el.style.animationDuration = (2.4+Math.random()*2.2)+'s';
+      bgFx.appendChild(el);
+    }
+  }
+  spawnSparkles(26);
+
+  /* ---------------- screen navigation ---------------- */
+  const screens = document.querySelectorAll('.screen');
+  function showScreen(name){
+    screens.forEach(s=>{
+      if(s.dataset.screen === name){
+        s.classList.add('active');
+      } else {
+        s.classList.remove('active');
+      }
+    });
+  }
+
+  /* ---------------- dodging "no" buttons ---------------- */
+  const dodgeLines = [
+    "Nuh-uh 😏","Nice try 😌","Not today 💕","Can't catch me 😘",
+    "This button's on strike 🙈","Try harder 😉","Nope, keep going ❤️","Too slow 😜"
+  ];
+  const shardColors = ['#a81338','#e85d75','#ff8fa3','#7d0e29','#fffbfb','#c9a227'];
+
+  function shatterButton(btn){
+    const rect = btn.getBoundingClientRect();
+    const cx = rect.left + rect.width/2;
+    const cy = rect.top + rect.height/2;
+    const pieceCount = 18;
+    for(let i=0;i<pieceCount;i++){
+      const shard = document.createElement('span');
+      shard.className = 'shard';
+      const size = 4 + Math.random()*9;
+      shard.style.width = size+'px';
+      shard.style.height = size+'px';
+      shard.style.left = (cx - size/2)+'px';
+      shard.style.top = (cy - size/2)+'px';
+      shard.style.background = shardColors[Math.floor(Math.random()*shardColors.length)];
+      shard.style.borderRadius = Math.random() < 0.5 ? '2px' : '50%';
+      const angle = Math.random()*Math.PI*2;
+      const dist = 70 + Math.random()*160;
+      shard.style.setProperty('--tx', Math.cos(angle)*dist+'px');
+      shard.style.setProperty('--ty', Math.sin(angle)*dist+'px');
+      shard.style.setProperty('--rot', (Math.random()*720-360)+'deg');
+      document.body.appendChild(shard);
+      setTimeout(()=> shard.remove(), 950);
+    }
+    btn.style.visibility = 'hidden';
+    btn.style.pointerEvents = 'none';
+  }
+
+  // btn: the "no" button. toastEl: small caption bubble. opts.breakLine: message shown
+  // once it shatters on the 3rd attempt. opts.secondLine: optional custom line for attempt 2.
+  function makeUnclickable(btn, toastEl, opts){
+    opts = opts || {};
+    let attempts = 0;
+    let broken = false;
+
+    function showToast(text, holdMs){
+      if(!toastEl) return;
+      toastEl.textContent = text;
+      toastEl.classList.add('show');
+      if(holdMs){
+        setTimeout(()=> toastEl.classList.remove('show'), holdMs);
+      }
+    }
+
+    function teleport(){
+      const rect = btn.getBoundingClientRect();
+      const margin = 12;
+      const maxX = Math.max(window.innerWidth - rect.width - margin*2, 0);
+      const maxY = Math.max(window.innerHeight - rect.height - margin*2, 0);
+      const x = margin + Math.random()*maxX;
+      const y = margin + Math.random()*maxY;
+      btn.style.position = 'fixed';
+      btn.style.zIndex = '40';
+      btn.style.margin = '0';
+      btn.style.left = x+'px';
+      btn.style.top = y+'px';
+    }
+
+    function dodgeOnly(){
+      if(broken) return;
+      teleport();
+    }
+
+    function attempt(){
+      if(broken) return;
+      attempts++;
+      if(attempts >= 3){
+        broken = true;
+        const rect = btn.getBoundingClientRect();
+        shatterButton(btn);
+        showToast(opts.breakLine || "That answer's gone for good 💔😏");
+        if(toastEl){
+          toastEl.style.position = 'static';
+          toastEl.style.transform = 'none';
+          toastEl.style.display = 'inline-block';
+          toastEl.style.marginTop = '14px';
+          toastEl.classList.add('show');
+        }
+        if(opts.onBreak) opts.onBreak();
+        return;
+      }
+      teleport();
+      showToast(attempts === 2 && opts.secondLine ? opts.secondLine
+                 : dodgeLines[Math.floor(Math.random()*dodgeLines.length)], 1000);
+    }
+
+    btn.addEventListener('mouseenter', dodgeOnly);
+    btn.addEventListener('pointerdown', function(e){ e.preventDefault(); attempt(); });
+    btn.addEventListener('click', function(e){ e.preventDefault(); });
+
+    return {
+      reset(){
+        attempts = 0;
+        broken = false;
+        btn.style.position = '';
+        btn.style.left = '';
+        btn.style.top = '';
+        btn.style.zIndex = '';
+        btn.style.visibility = '';
+        btn.style.pointerEvents = '';
+        if(toastEl){
+          toastEl.classList.remove('show');
+          toastEl.style.position = '';
+          toastEl.style.transform = '';
+          toastEl.style.display = '';
+          toastEl.style.marginTop = '';
+        }
+      }
+    };
+  }
+
+  /* ---------------- questions data ---------------- */
+  const questions = [
+    { emoji:"👀❤️", text:"Be honest… when you see my name pop up on your phone, do you smile a little?", yes:"Of course I do 😍", no:"Not really 😭" },
+    { emoji:"🌹", text:"If I asked you to spend a whole day with me, would you want to?", yes:"Absolutely ❤️", no:"Probably not 😭" },
+    { emoji:"🥹", text:"Do you think we could make some really beautiful memories together?", yes:"Yes, I'd love that 🥰", no:"I don't think so 😭" },
+    { emoji:"💕", text:"If I promised to make you laugh, support you, care for you and always be there for you… would you give me a chance?", yes:"Yes, I would ❤️", no:"No, sorry 🥺" }
+  ];
+
+  // overall journey: q0 -> the "what's my type" detour -> q1, q2, q3 -> final
+  const flowSteps = ['q0', 'type', 'q1', 'q2', 'q3'];
+  let stepPos = 0;
+
+  const qEmoji = document.getElementById('qEmoji');
+  const qText = document.getElementById('qText');
+  const qYesBtn = document.getElementById('qYesBtn');
+  const qNoBtn = document.getElementById('qNoBtn');
+  const qToast = document.getElementById('qToast');
+  const progressEl = document.getElementById('progress');
+  const progressDots = progressEl.querySelectorAll('span');
+
+  let currentDodge = null;
+
+  function setProgressVisible(visible){
+    progressEl.classList.toggle('show', visible);
+  }
+
+  function updateProgressDots(pos){
+    progressDots.forEach((d, idx)=>{
+      d.classList.remove('done','now');
+      if(idx < pos) d.classList.add('done');
+      if(idx === pos) d.classList.add('now');
+    });
+  }
+
+  function loadQuestion(i){
+    const q = questions[i];
+    qEmoji.textContent = q.emoji;
+    qText.textContent = q.text;
+    qYesBtn.textContent = q.yes;
+    qNoBtn.textContent = q.no;
+
+    // reset the "no" button completely so it reappears fresh for each question
+    if(currentDodge) currentDodge.reset();
+    qNoBtn.style.position = '';
+    qNoBtn.style.left = '';
+    qNoBtn.style.top = '';
+    qNoBtn.style.visibility = '';
+    qNoBtn.style.pointerEvents = '';
+    qToast.classList.remove('show');
+
+    currentDodge = makeUnclickable(qNoBtn, qToast, {
+      breakLine: "That answer didn't survive 💔😅"
+    });
+  }
+
+  function goToStep(pos){
+    stepPos = pos;
+    const step = flowSteps[pos];
+    updateProgressDots(pos);
+    setProgressVisible(true);
+    if(step[0] === 'q'){
+      showScreen('question');
+      loadQuestion(parseInt(step.slice(1), 10));
+    } else if(step === 'type'){
+      showScreen('type');
+      initTypeQuestion();
+    }
+  }
+
+  document.getElementById('startBtn').addEventListener('click', ()=>{
+    goToStep(0);
+  });
+
+  qYesBtn.addEventListener('click', ()=>{
+    qYesBtn.disabled = true;
+    setTimeout(()=>{
+      qYesBtn.disabled = false;
+      const next = stepPos + 1;
+      if(next < flowSteps.length){
+        goToStep(next);
+      } else {
+        setProgressVisible(false);
+        showScreen('final');
+      }
+    }, 260);
+  });
+
+  /* ---------------- what's my type ---------------- */
+  const typeGrid = document.getElementById('typeGrid');
+  const typeHint = document.getElementById('typeHint');
+  const CORRECT_KEYS = ['petite', 'funny', 'you'];
+
+  function initTypeQuestion(){
+    const boxes = typeGrid.querySelectorAll('.type-box');
+    boxes.forEach(box=>{
+      box.classList.remove('selected');
+      box.style.visibility = '';
+      box.style.pointerEvents = '';
+      box.disabled = false;
+    });
+    typeHint.textContent = "pick the right ones… 😉";
+    let correctChosen = 0;
+
+    boxes.forEach(box=>{
+      box.onclick = function(){
+        if(box.disabled) return;
+        if(box.classList.contains('correct')){
+          box.classList.add('selected');
+          box.disabled = true;
+          correctChosen++;
+          if(correctChosen >= CORRECT_KEYS.length){
+            typeHint.textContent = "perfect score 💯";
+            setTimeout(startAnalysing, 700);
+          }
+        } else {
+          box.disabled = true;
+          shatterButton(box);
+        }
+      };
+    });
+  }
+
+  const analysingText = document.getElementById('analysingText');
+  const analysingLines = ["Analysing answers...", "Finding best match...", "Selecting options..."];
+
+  function startAnalysing(){
+    showScreen('analysing');
+    let idx = 0;
+    analysingText.style.opacity = '1';
+    analysingText.textContent = analysingLines[0];
+    const cycle = setInterval(()=>{
+      idx++;
+      if(idx >= analysingLines.length){
+        clearInterval(cycle);
+        setTimeout(showReveal, 900);
+        return;
+      }
+      analysingText.style.opacity = '0';
+      setTimeout(()=>{
+        analysingText.textContent = analysingLines[idx];
+        analysingText.style.opacity = '1';
+      }, 260);
+    }, 1150);
+  }
+
+  /* ---------------- photo reveal ---------------- */
+  const photoFrame = document.getElementById('photoFrame');
+  const revealImg = document.getElementById('revealImg');
+
+  function showReveal(){
+    showScreen('reveal');
+    photoFrame.classList.remove('show-fallback');
+    revealImg.classList.remove('hidden-img', 'fade-out');
+    revealImg.onerror = function(){
+      photoFrame.classList.add('show-fallback');
+      revealImg.classList.add('hidden-img');
+    };
+    // hold the photo for 10s, then fade it out slowly over 4s, then continue
+    setTimeout(()=>{
+      revealImg.classList.add('fade-out');
+      setTimeout(()=>{
+        goToStep(stepPos + 1); // continue on to q1
+      }, 4000);
+    }, 10000);
+  }
+
+  /* ---------------- final question ---------------- */
+  const finalStep1 = document.getElementById('finalStep1');
+  const finalStep2 = document.getElementById('finalStep2');
+  const finalYesBtn = document.getElementById('finalYesBtn');
+  const finalNoBtn = document.getElementById('finalNoBtn');
+  const finalToast = document.getElementById('finalToast');
+
+  document.getElementById('finalContinueBtn').addEventListener('click', ()=>{
+    finalStep1.classList.remove('active');
+    finalStep2.classList.add('active');
+    makeUnclickable(finalNoBtn, finalToast, {
+      secondLine: "Wait… are you sure? 🥺❤️",
+      breakLine: "Guess that settles it then 😏❤️"
+    });
+  });
+
+  finalYesBtn.addEventListener('click', ()=>{
+    showScreen('celebration');
+    celebrate();
+  });
+
+  /* ---------------- celebration fx ---------------- */
+  const fxOverlay = document.getElementById('fx-overlay');
+  const confettiColors = ['#a81338','#e85d75','#c9a227','#ff8fa3','#fffbfb'];
+
+  function spawnFallPiece(kind){
+    const el = document.createElement('span');
+    el.className = 'fall-piece';
+    if(kind === 'heart'){
+      el.textContent = heartChars[Math.floor(Math.random()*heartChars.length)];
+      el.style.fontSize = (14+Math.random()*20)+'px';
+    } else if(kind === 'sparkle'){
+      el.textContent = '✨';
+      el.style.fontSize = (10+Math.random()*12)+'px';
+    } else {
+      el.style.width = (6+Math.random()*6)+'px';
+      el.style.height = (10+Math.random()*8)+'px';
+      el.style.background = confettiColors[Math.floor(Math.random()*confettiColors.length)];
+      el.style.borderRadius = '2px';
+    }
+    el.style.left = (Math.random()*100)+'vw';
+    const dur = 3.2 + Math.random()*2.4;
+    el.style.animation = `fallDown ${dur}s linear forwards`;
+    fxOverlay.appendChild(el);
+    setTimeout(()=> el.remove(), dur*1000 + 100);
+  }
+
+  let celebrating = false;
+  function celebrate(){
+    if(celebrating) return;
+    celebrating = true;
+    let ticks = 0;
+    const burst = setInterval(()=>{
+      for(let i=0;i<6;i++){
+        const r = Math.random();
+        spawnFallPiece(r < .45 ? 'heart' : (r < .7 ? 'confetti' : 'sparkle'));
+      }
+      ticks++;
+      if(ticks > 40){ clearInterval(burst); }
+    }, 180);
+
+    // gentle continuous ambience after the burst
+    setInterval(()=>{
+      const r = Math.random();
+      spawnFallPiece(r < .5 ? 'heart' : (r < .8 ? 'confetti' : 'sparkle'));
+    }, 500);
+  }
+
+  /* ---------------- tiny romantic melody (Web Audio) ---------------- */
+  let audioCtx = null;
+  let playing = false;
+  const musicBtn = document.getElementById('musicBtn');
+  const melody = [
+    523.25, 587.33, 659.25, 523.25, 659.25, 783.99, 659.25, 587.33,
+    523.25, 659.25, 783.99, 880.00, 783.99, 659.25, 587.33, 523.25
+  ];
+  let noteIndex = 0;
+  let melodyTimer = null;
+
+  function playNote(freq, duration){
+    if(!audioCtx) return;
+    const osc = audioCtx.createOscillator();
+    const gain = audioCtx.createGain();
+    osc.type = 'sine';
+    osc.frequency.value = freq;
+    gain.gain.setValueAtTime(0.0001, audioCtx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.18, audioCtx.currentTime + 0.03);
+    gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + duration);
+    osc.connect(gain);
+    gain.connect(audioCtx.destination);
+    osc.start();
+    osc.stop(audioCtx.currentTime + duration);
+  }
+
+  function scheduleMelody(){
+    playNote(melody[noteIndex % melody.length], 0.42);
+    noteIndex++;
+    melodyTimer = setTimeout(scheduleMelody, 320);
+  }
+
+  musicBtn.addEventListener('click', ()=>{
+    if(!audioCtx){
+      audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    }
+    if(!playing){
+      if(audioCtx.state === 'suspended') audioCtx.resume();
+      playing = true;
+      noteIndex = 0;
+      scheduleMelody();
+      musicBtn.textContent = '🔇 Pause our song';
+    } else {
+      playing = false;
+      clearTimeout(melodyTimer);
+      musicBtn.textContent = '🎵 Play our song';
+    }
+  });
+
+})();
+</script>
+</body>
+</html>

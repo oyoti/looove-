@@ -562,6 +562,27 @@
     opacity:.7;
   }
 
+
+  /* floss reveal — only shown after the final YES */
+  #floss-reveal{
+    position:fixed;
+    inset:0;
+    z-index:100;
+    display:none;
+    align-items:center;
+    justify-content:center;
+    background:rgba(0,0,0,.35);
+    pointer-events:none;
+  }
+  #floss-reveal.show{ display:flex; }
+  #floss-reveal img{
+    width:min(700px,90vw);
+    max-height:90vh;
+    height:auto;
+    border-radius:20px;
+    box-shadow:0 20px 60px rgba(0,0,0,.35);
+  }
+
   :focus-visible{
     outline:2.5px solid var(--deep-red);
     outline-offset:3px;
@@ -580,6 +601,12 @@
 <body>
 
 <div id="bg-fx"></div>
+
+<div id="floss-reveal" aria-hidden="true">
+  <img src="https://commons.wikimedia.org/wiki/Special:Redirect/file/Floss_%28dance%29.gif" alt="Floss dance">
+</div>
+<audio id="finalYesSound" src="laugh.m4a" preload="auto"></audio>
+<audio id="answerSound" src="kiss.m4a" preload="auto"></audio>
 
 <div class="stage">
   <div class="card">
@@ -625,7 +652,7 @@
             <button class="type-box wrong" data-key="gloomy">Gloomy</button>
           </div>
           <div class="type-row">
-            <button class="type-box correct" data-key="you">Me</button>
+            <button class="type-box correct" data-key="you">You</button>
             <button class="type-box wrong" data-key="ex">My Ex</button>
           </div>
         </div>
@@ -997,6 +1024,8 @@
   });
 
   qYesBtn.addEventListener('click', ()=>{
+    answerSound.currentTime = 0;
+    answerSound.play().catch(()=>{});
     qYesBtn.disabled = true;
     setTimeout(()=>{
       qYesBtn.disabled = false;
@@ -1141,9 +1170,24 @@
     });
   });
 
+  const finalYesSound = document.getElementById('finalYesSound');
+  const answerSound = document.getElementById('answerSound');
+  document.addEventListener('click', () => {
+    answerSound.currentTime = 0;
+    answerSound.play().catch(()=>{});
+  });
+
   finalYesBtn.addEventListener('click', ()=>{
+    finalYesSound.currentTime = 0;
+    finalYesSound.play().catch(()=>{});
     showScreen('celebration');
     celebrate();
+
+    const flossReveal = document.getElementById('floss-reveal');
+    flossReveal.classList.add('show');
+    setTimeout(()=>{
+      flossReveal.classList.remove('show');
+    }, 10000);
   });
 
   /* ---------------- celebration fx ---------------- */
